@@ -4,19 +4,17 @@ import execa from 'execa';
 import * as cache from '@actions/cache';
 import * as core from '@actions/core';
 import * as tc from '@actions/tool-cache';
-import { getHomeDir, getProtoDir, getToolchainCacheKey, getToolsDir } from './helpers';
+import { getProtoDir, getToolchainCacheKey, getToolsDir } from './helpers';
 
 const WINDOWS = process.platform === 'win32';
 
-// eslint-disable-next-line complexity
 async function installProto() {
 	core.info('Installing `proto` globally');
 
 	const version = core.getInput('version') || 'latest';
-	const isV1 = version === 'latest' || !version.startsWith('0');
 
 	const binName = WINDOWS ? 'proto.exe' : 'proto';
-	const binDir = isV1 ? path.join(getProtoDir(), 'bin') : path.join(getToolsDir(), 'proto', version);
+	const binDir = path.join(getProtoDir(), 'bin');
 	const binPath = path.join(binDir, binName);
 
 	if (version !== 'latest' && fs.existsSync(binPath)) {
@@ -26,12 +24,10 @@ async function installProto() {
 		return;
 	}
 
-	const scriptName = WINDOWS ? 'install.ps1' : 'install.sh';
+	const scriptName = WINDOWS ? 'proto.ps1' : 'proto.sh';
 	const script = await tc.downloadTool(
-		isV1
-			? `https://moonrepo.dev/install/${WINDOWS ? 'proto.ps1' : 'proto.sh'}`
-			: `https://moonrepo.dev/${scriptName}`,
-		path.join(getHomeDir(), 'temp', scriptName),
+		`https://moonrepo.dev/install/${scriptName}`,
+		path.join(getProtoDir(), 'temp', scriptName),
 	);
 	const args = version === 'latest' ? [] : [version];
 

@@ -1,4 +1,4 @@
-name: 'proto - Setup the proto toolchain manager'
+name: 'proto - Setup and install the proto toolchain'
 author: 'Miles Johnson'
 description: 'Installs proto globally and caches the toolchain.'
 inputs:
@@ -16,5 +16,5 @@ runs:
   main: 'dist/index.js'
   post: 'dist/post/index.js'
 branding:
-  icon: 'battery-charging'
-  color: 'purple'
+  icon: 'zap'
+  color: 'red'
