@@ -25,10 +25,14 @@ async function installProto() {
 	}
 
 	const scriptName = WINDOWS ? 'proto.ps1' : 'proto.sh';
-	const script = await tc.downloadTool(
-		`https://moonrepo.dev/install/${scriptName}`,
-		path.join(getProtoDir(), 'temp', scriptName),
-	);
+	const scriptPath = path.join(getProtoDir(), 'temp', scriptName);
+
+	// If the installer already exists, delete it and ensure were using the latest
+	if (fs.existsSync(scriptPath)) {
+		fs.unlinkSync(scriptPath);
+	}
+
+	const script = await tc.downloadTool(`https://moonrepo.dev/install/${scriptName}`, scriptPath);
 	const args = version === 'latest' ? [] : [version];
 
 	core.info(`Downloaded installation script to ${script}`);
