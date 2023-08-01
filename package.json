@@ -1,6 +1,6 @@
 {
   "name": "@moonrepo/setup-proto",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "description": "A GitHub action for installing proto globally and caching the toolchain.",
   "main": "dist/index.js",
   "scripts": {
