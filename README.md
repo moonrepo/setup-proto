@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: moonrepo/setup-proto@v0
+      - uses: moonrepo/setup-proto@v1
       - run: proto use
 ```
 
