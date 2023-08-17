@@ -4,7 +4,7 @@ import execa from 'execa';
 import * as cache from '@actions/cache';
 import * as core from '@actions/core';
 import * as tc from '@actions/tool-cache';
-import { getProtoDir, getToolchainCacheKey, getToolsDir } from './helpers';
+import { getPluginsDir, getProtoDir, getToolchainCacheKey, getToolsDir } from './helpers';
 
 const WINDOWS = process.platform === 'win32';
 
@@ -63,7 +63,7 @@ async function restoreCache() {
 
 	const primaryKey = await getToolchainCacheKey();
 	const cacheKey = await cache.restoreCache(
-		[getToolsDir()],
+		[getPluginsDir(), getToolsDir()],
 		primaryKey,
 		[`proto-toolchain-${process.platform}`, 'proto-toolchain'],
 		{},

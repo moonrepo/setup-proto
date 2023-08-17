@@ -11,6 +11,10 @@ export function getProtoDir() {
 	return path.join(os.homedir(), '.proto');
 }
 
+export function getPluginsDir() {
+	return path.join(getProtoDir(), 'plugins');
+}
+
 export function getToolsDir() {
 	return path.join(getProtoDir(), 'tools');
 }
